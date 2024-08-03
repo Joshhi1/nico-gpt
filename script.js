@@ -1,26 +1,30 @@
-import { config } from "dotenv"
-config()
+import { AssemblyAI } from 'assemblyai'
 
-import { Configuration, OpenAIApi } from "openai"
-import readline from "readline"
-
-const openAi = new OpenAIApi(
-  new Configuration({
-    apiKey: process.env.OPEN_AI_API_KEY,
-  })
-)
-
-const userInterface = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+// Initialize the AssemblyAI client with your API key
+const client = new AssemblyAI({
+  apiKey: '8623d1a6b31440e09ff7b17c99af9a43'
 })
 
-userInterface.prompt()
-userInterface.on("line", async input => {
-  const response = await openAi.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: input }],
-  })
-  console.log(response.data.choices[0].message.content)
-  userInterface.prompt()
-})
+// Define the URL of the audio file you want to transcribe
+const audioUrl = 'https://storage.googleapis.com/aai-web-samples/5_common_sports_injuries.mp3'
+
+// Configuration object for the transcription request
+const config = {
+  audio_url: audioUrl
+}
+
+const run = async () => {
+  try {
+    // Send the transcription request
+    const transcript = await client.transcripts.transcribe(config)
+    
+    // Log the transcribed text
+    console.log(transcript.text)
+  } catch (error) {
+    // Handle any errors that occur during transcription
+    console.error('Error transcribing audio:', error)
+  }
+}
+
+// Execute the transcription function
+run()
