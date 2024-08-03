@@ -1,5 +1,5 @@
 {
-  "name": "chat-gpt-api",
+  "name": "nico-ai",
   "version": "1.0.0",
   "description": "",
   "main": "script.js",
@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "openai": "^3.2.1"
+    "assemblyai": "^1.0.0"  // Adjust this version if needed
   }
 }
